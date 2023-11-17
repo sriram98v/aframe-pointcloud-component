@@ -94,7 +94,7 @@
 					const sprite = new THREE.TextureLoader().load( _this.data.texture );
 					material = new THREE.PointsMaterial({
 						size: _this.data.size,
-						vertexColors: THREE.VertexColors,
+						vertexColors: false,
 						map: sprite,
 						transparent: true,
 						opacity: _this.data.opacity,
@@ -103,7 +103,7 @@
 				} else {
 					material = new THREE.PointsMaterial({
 						size: _this.data.size,
-						vertexColors: THREE.VertexColors,
+						vertexColors: true,
 						transparent: true,
 						opacity: _this.data.opacity,
 					});
@@ -444,6 +444,9 @@
 
 			function postProcess( buffer ) {
 
+				console.log(buffer);
+				console.log(THREE.VertexColors);
+
 				var geometry = new THREE.BufferGeometry();
 
 				// mandatory buffer data
@@ -454,25 +457,25 @@
 
 				}
 
-				geometry.addAttribute( 'position', new THREE.Float32BufferAttribute( buffer.vertices, 3 ) );
+				geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( buffer.vertices, 3 ) );
 
 				// optional buffer data
 
 				if ( buffer.normals.length > 0 ) {
 
-					geometry.addAttribute( 'normal', new THREE.Float32BufferAttribute( buffer.normals, 3 ) );
+					geometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( buffer.normals, 3 ) );
 
 				}
 
 				if ( buffer.uvs.length > 0 ) {
 
-					geometry.addAttribute( 'uv', new THREE.Float32BufferAttribute( buffer.uvs, 2 ) );
+					geometry.setAttribute( 'uv', new THREE.Float32BufferAttribute( buffer.uvs, 2 ) );
 
 				}
 
 				if ( buffer.colors.length > 0 ) {
 
-					geometry.addAttribute( 'color', new THREE.Float32BufferAttribute( buffer.colors, 3 ) );
+					geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( buffer.colors, 3 ) );
 
 				}
 
